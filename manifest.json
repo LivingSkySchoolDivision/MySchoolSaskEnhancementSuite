@@ -1,0 +1,28 @@
+{
+  "manifest_version": 2,
+  "name": "MySchoolSask Tweaks",
+  "version": "0.1",
+
+  "description": "Tweaks to MySchoolSask",
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.myschoolsask.com/aspen/*"],
+      "js": ["jquery-3.3.1.min.js", "myschoolsask.com.js"]
+    }
+  ],
+  "icons": {
+    "48": "img/msst_48.png",
+    "96": "img/msst_96.png"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "browser_style": true
+  },  
+  "permissions": ["storage"],
+  "applications": {
+    "gecko": {
+      "id": "myschoolsasktweaks@myschoolsasktweaks.ca"
+    }
+  }
+}
