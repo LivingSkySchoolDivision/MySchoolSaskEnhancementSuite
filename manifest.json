@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
-  "name": "MySchoolSask Tweaks",
+  "name": "MySchoolSask Enhancement Suite",
   "version": "0.1",
 
-  "description": "Tweaks to MySchoolSask",
+  "description": "Adds enhancements to MySchoolSask. Only useful if you already have access to MySchoolSask.",
 
   "content_scripts": [
     {
@@ -22,7 +22,7 @@
   "permissions": ["storage"],
   "applications": {
     "gecko": {
-      "id": "myschoolsasktweaks@myschoolsasktweaks.ca"
+      "id": "myschoolsasktweaks@lskysd.ca"
     }
   }
 }
