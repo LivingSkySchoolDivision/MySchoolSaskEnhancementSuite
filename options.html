@@ -6,17 +6,21 @@
   </head>
 
   <body>
+  <div style="max-width: 800px; font-family: sans-serif; padding: 15px; margin: 10px;border: 1px solid rgba(0,0,25,0.3);">
     <form id="options_form">
     	<h1>MySchoolSask Enhancement Suite Options</h1>
     	<h2>Prevent login session timeouts</h2>
-    	<p>This addon can prevent your MySchoolSask session from timing out. For security reasons, this will only function between 8:00am and 5:00pm, local time. Outside this time span, your session will time out normally.</p>
+        <p>This addon can prevent your MySchoolSask session from timing out. For security reasons, this will only function between 8:00am and 5:00pm, local time. Outside this time span, your session will time out normally.</p>
         <label style="padding-left: 15px;"><input type="checkbox" id="chkPreventTimeout" >Prevent my MySchoolSask session from timing out during business hours</label>
         <br/><br/>
-        <button type="submit">SAVE</button>
+      <h2>Testing and Debugging</h2>
+        <label style="padding-left: 15px;"><input type="checkbox" id="chkShowItWorks" >Show "It Works" banner at the top of affected web pages</label>        
+      <br/><br/> 
+      <button type="submit">SAVE</button>
     </form>
 
     <script src="options.js"></script>
-
+  </div>
   </body>
 
 </html>
