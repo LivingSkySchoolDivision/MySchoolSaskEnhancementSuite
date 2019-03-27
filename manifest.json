@@ -24,7 +24,7 @@
   "permissions": ["storage"],
   "applications": {
     "gecko": {
-      "id": "myschoolsasktweaks@lskysd.ca"
+      "id": "myschoolsaskenhancemensuite@lskysd.ca"
     }
   }
 }
