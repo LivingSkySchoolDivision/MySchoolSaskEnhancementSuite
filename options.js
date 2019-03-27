@@ -7,7 +7,7 @@ function doSave(e) {
   console.log("saving prevent timeout:" + document.querySelector("#chkPreventTimeout").checked);
   console.log("saving it works banner: " + document.querySelector("#chkShowItWorks").checked);
 
-  browser.storage.sync.set({
+  chrome.storage.sync.set({
     lCanPreventTimeout: document.querySelector("#chkPreventTimeout").checked,
     lShowItWorksBanner: document.querySelector("#chkShowItWorks").checked
   });
@@ -30,38 +30,38 @@ function disableTimeoutOptions() {
 }
 
 $("#rdbNewTimeoutLength_30").on('change', function() {
-  browser.storage.sync.set({
+  chrome.storage.sync.set({
     iNewTimeoutLength: 30
   });
 });
 
 $("#rdbNewTimeoutLength_60").on('change', function() {
-  browser.storage.sync.set({
+  chrome.storage.sync.set({
     iNewTimeoutLength: 60 
   });
 });
 
 $("#rdbNewTimeoutLength_120").on('change', function() {
-  browser.storage.sync.set({
+  chrome.storage.sync.set({
     iNewTimeoutLength: 120 
   });
 });
 
 $("#rdbNewTimeoutLength_240").on('change', function() {
-  browser.storage.sync.set({
+  chrome.storage.sync.set({
     iNewTimeoutLength: 240 
   });
 });
 
 $("#rdbNewTimeoutLength_360").on('change', function() {
-  browser.storage.sync.set({
+  chrome.storage.sync.set({
     iNewTimeoutLength: 360 
   });
 });
 
 $("#rdbTimeoutOverrideMode_Disable").on('change', function() {
   disableTimeoutOptions();
-  browser.storage.sync.set({
+  chrome.storage.sync.set({
     sTimeoutOverrideMode: "disabletimeout"
   });
 });
@@ -69,33 +69,33 @@ $("#rdbTimeoutOverrideMode_Disable").on('change', function() {
 $("#rdbTimeoutOverrideMode_Override").on('change', function() {
   enableTimeoutOptions();
 
-  browser.storage.sync.set({    
+  chrome.storage.sync.set({    
     sTimeoutOverrideMode: "override"
   });
 });
 
 $("#rdbTimeoutOverrideMode_None").on('change', function() {
   disableTimeoutOptions();
-  browser.storage.sync.set({  
+  chrome.storage.sync.set({  
     sTimeoutOverrideMode: "nooverride"
   });
 
 });
 
 $("#chkShowItWorks").on('change', function() {    
-  browser.storage.sync.set({
+  chrome.storage.sync.set({
     lShowItWorksBanner: document.querySelector("#chkShowItWorks").checked 
   });
 });
 
 
 $("#btnResetSettingsToDefault").on('click', function() {  
- browser.storage.sync.clear();
+ chrome.storage.sync.clear();
  location.reload();
 });
 
 /// Visually updates the fields on the options page to match the stored settings, or the defauls
-function updateFields_Callback(settings) {
+function updateFields_Callback(settings) {  
   var blnItWorks = settings["lShowItWorksBanner"] === true || false;
  
   // Debug banner
@@ -177,9 +177,7 @@ function updateFields_Callback(settings) {
 }
 
 function updateFields() {
-  var savedSettings = browser.storage.sync.get();
-  savedSettings.then(updateFields_Callback, onError);
+  var savedSettings = chrome.storage.sync.get(updateFields_Callback);
 }
 
-// Listen for save button being pressed
 document.addEventListener("DOMContentLoaded", updateFields);

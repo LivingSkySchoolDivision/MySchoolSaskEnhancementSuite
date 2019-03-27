@@ -54,5 +54,4 @@ function onSettingsLoaded(settings) {
 }
 
 // Load the options and then handle the response we get back from browser storage
-var savedSettings = browser.storage.sync.get();  
-savedSettings.then(onSettingsLoaded, onError);
+var savedSettings = chrome.storage.sync.get(onSettingsLoaded);  
