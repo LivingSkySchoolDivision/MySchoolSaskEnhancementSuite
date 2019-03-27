@@ -94,22 +94,12 @@ $("#btnResetSettingsToDefault").on('click', function() {
  location.reload();
 });
 
-function handleTimeoutSelection(e) {
-  console.log(e);
-}
-
-function updateOption(result) {
-  console.log(result);
-}
-
 /// Visually updates the fields on the options page to match the stored settings, or the defauls
 function updateFields_Callback(settings) {
   var blnItWorks = settings["lShowItWorksBanner"] === true || false;
  
   // Debug banner
   document.querySelector("#chkShowItWorks").checked = blnItWorks;
-
-  console.log(settings);
 
   // Session timeouts
   switch(settings["sTimeoutOverrideMode"]) {
