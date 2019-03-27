@@ -1,26 +1,56 @@
 function onError(error) {
-  console.log(`Error: ${error}`);
+  console.log("Error: " + error);
 }
 
 function onSettingsLoaded(settings) {
-	// Check if we're allowed to prevent timeouts
-	if (settings.lCanPreventTimeout == true) {
+	
+	// Check if we should adjust the timeout
+	if (settings.sTimeoutOverrideMode == "disabletimeout") {
 
-		// Check if the hours are within the boundaries		
-		// Hard code these boundaries for the time being - we currently don't want these to be user settable.
-		var nowTime = new Date();
-		var nowHour = nowTime.getHours();		
+		// Inject code into every page that resets the timeout at an interval
+		console.log("Disabling timeout");
+		$("body").before("<script language=\"javascript\">setInterval(function() { var d = new Date(); getParentX2Window().lastUserEvent = d.getTime(); }, 5000);</script>");		 
+	
+	} else if (settings.sTimeoutOverrideMode == "override") {
 
-		if ((nowHour >= 8) && (nowHour <= 17)) {
-			// Inject code into every page that resets the timeout
-			$("body").before("<script language=\"javascript\">setInterval(function() { var d = new Date(); getParentX2Window().lastUserEvent = d.getTime(); }, 5000);</script>");
+		// Override the timeoutDuration variable with our own value
+		// Get the timeout value
+
+		// New value of timeout in milliseconds
+		var iNewTimeoutValue = 1800000; 
+
+		switch(settings.iNewTimeoutLength) {
+			case 30 :
+				iNewTimeoutValue = 1800000; // 30 minutes
+				break;
+			case 60 :
+				iNewTimeoutValue = 3600000; // 1 hour
+				break;
+			case 120 :
+				iNewTimeoutValue = 7200000; // 2 hours
+				break;
+			case 240 :
+				iNewTimeoutValue = 14400000; // 4 hours
+				break;
+			case 360 :
+				iNewTimeoutValue = 21600000; // 6 hours
+				break;
+			default: 
+				iNewTimeoutValue = 1800000; // 30 minutes by default
+				break;
 		} 
+
+		$("head").after("<script language=\"javascript\">getParentX2Window().timeoutDuration = " + iNewTimeoutValue + "; getParentX2Window().sessionTimeout = " + iNewTimeoutValue + " + new Date().getTime();</script>");		 
+
+		console.log("overriding session timeout to: " + iNewTimeoutValue + "ms");
 	}
 
 	// Check if we should show the "It Works" banner
 	if (settings.lShowItWorksBanner == true) {
+		console.log("It works!");
 		$("body").before("<div style=\"font-size: 8pt; margin: 0; padding: 0; width: 100%; background-color: yellow; color: black;text-align: center;font-family: sans-serif;\">MySchoolSask Enhancement Suite is able to modify the contents of this page.</div>");		 
 	}
+
 }
 
 // Load the options and then handle the response we get back from browser storage

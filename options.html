@@ -3,20 +3,55 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <style type="text/css">
+      .optionsSection {
+        margin-top: 45px;
+        margin-bottom: 45px;
+        padding-bottom: 45px;
+        border: 0;
+        border-bottom: 1px solid rgba(0,0,0,0.2);
+      }
+
+      input[type="radio"] {
+        margin-right: 7px;        
+        margin-bottom: 5px;
+      }
+    </style>
   </head>
+  <script type="text/javascript" src="/jquery-3.3.1.min.js"></script>
 
   <body>
-  <div style="max-width: 800px; font-family: sans-serif; padding: 15px; margin: 10px;border: 1px solid rgba(0,0,25,0.3);">
+  <div style="max-width: 800px; font-family: sans-serif; padding: 25px; padding-top: 0px; margin: 10px;border: 1px solid rgba(0,0,25,0.3); margin-left: auto; margin-right: auto;">
     <form id="options_form">
     	<h1>MySchoolSask Enhancement Suite Options</h1>
-    	<h2>Prevent login session timeouts</h2>
-        <p>This addon can prevent your MySchoolSask session from timing out. For security reasons, this will only function between 8:00am and 5:00pm, local time. Outside this time span, your session will time out normally.</p>
-        <label style="padding-left: 15px;"><input type="checkbox" id="chkPreventTimeout" >Prevent my MySchoolSask session from timing out during business hours</label>
-        <br/><br/>
-      <h2>Testing and Debugging</h2>
-        <label style="padding-left: 15px;"><input type="checkbox" id="chkShowItWorks" >Show "It Works" banner at the top of affected web pages</label>        
-      <br/><br/> 
-      <button type="submit">SAVE</button>
+      <div class="optionsSection">
+      <h2>Session Timeouts</h2>
+        <p>This addon can override the pre-programmed login session timeout, so that your session doesn't get "timed out" as often.</p>
+        <input type="radio" name="rdbTimeoutOverrideMode" id="rdbTimeoutOverrideMode_None">Do not adjust session timeouts (More secure, but more logging in)<br/>
+        <input type="radio" name="rdbTimeoutOverrideMode" id="rdbTimeoutOverrideMode_Override">Adjust session timout to the following:<br/>
+        <p style="padding-left: 25px;">          
+          <input disabled="true" type="radio" name="rdbNewTimeoutLength" id="rdbNewTimeoutLength_30" value="30">30 Minutes <i>(MSS Default)</i><br/>
+          <input disabled="true" type="radio" name="rdbNewTimeoutLength" id="rdbNewTimeoutLength_60" value="60">1 Hour<br/>
+          <input disabled="true" type="radio" name="rdbNewTimeoutLength" id="rdbNewTimeoutLength_120" value="120">2 Hours<br/>
+          <input disabled="true" type="radio" name="rdbNewTimeoutLength" id="rdbNewTimeoutLength_240" value="240">4 Hours<br/>
+          <input disabled="true" type="radio" name="rdbNewTimeoutLength" id="rdbNewTimeoutLength_360" value="360">6 Hours<br/>          
+        </p>
+        <input type="radio" name="rdbTimeoutOverrideMode" id="rdbTimeoutOverrideMode_Disable">Disable session timeout completely. (The login session will end when the browser closes)<br/>
+        <br/>
+        <i><B>Note:</B> Login sessions are terminated when you close your browser, regardless of any setting currently offered by this browser extension.</i>
+        </div>
+
+        <div class="optionsSection">
+        <h2>Problems or concerns?</h2>
+        <p>Visit this addon's GitHub repository to report issues or view source code: <br><a href="https://github.com/LivingSkySchoolDivision/MySchoolSaskEnhancementSuite-FireFox">https://github.com/LivingSkySchoolDivision/MySchoolSaskEnhancementSuite-FireFox</a></p>
+        </div>
+
+        <div class="optionsSection">          
+        <h2>Testing and Debugging Options</h2>
+          <input type="checkbox" id="chkShowItWorks" >Show "It Works" banner at the top of affected web pages
+          <br/><br/>
+          <input type="button" id="btnResetSettingsToDefault" value="Reset all settings to defaults" />
+        </div>
     </form>
 
     <script src="options.js"></script>
