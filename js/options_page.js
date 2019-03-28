@@ -88,6 +88,23 @@ $("#chkShowItWorks").on('change', function() {
   });
 });
 
+$("#chkShowGradeDropdownOnRegWizard").on('change', function() {    
+  var showGradeDropdown = document.querySelector("#chkShowGradeDropdownOnRegWizard").checked || false;
+  chrome.storage.sync.set({
+    lShowYOGGradeDropdowns: showGradeDropdown
+  });
+
+  $("#chkHideYearofGraduationFields").prop("disabled", !showGradeDropdown);
+
+});
+
+$("#chkHideYearofGraduationFields").on('change', function() {    
+  var hideYOGRow = document.querySelector("#chkHideYearofGraduationFields").checked || false;
+  chrome.storage.sync.set({
+    lHideYOGRow: hideYOGRow
+  });
+});
+
 
 $("#btnResetSettingsToDefault").on('click', function() {  
  chrome.storage.sync.clear();
@@ -96,10 +113,18 @@ $("#btnResetSettingsToDefault").on('click', function() {
 
 /// Visually updates the fields on the options page to match the stored settings, or the defauls
 function onSyncSettingsLoaded(settings) {  
+  console.log(settings);
   var blnItWorks = settings["lShowItWorksBanner"] === true || false;
  
   // Debug banner
   document.querySelector("#chkShowItWorks").checked = blnItWorks;
+
+  // YOG
+  document.querySelector("#chkShowGradeDropdownOnRegWizard").checked = (settings.lShowYOGGradeDropdowns || false);
+  document.querySelector("#chkHideYearofGraduationFields").checked = (settings.lHideYOGRow || false);
+  document.querySelector("#chkHideYearofGraduationFields").disabled = !settings.lShowYOGGradeDropdowns;
+
+
 
   // Session timeouts
   switch(settings["sTimeoutOverrideMode"]) {

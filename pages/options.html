@@ -16,6 +16,10 @@
         border-bottom: 2px solid #098AC9;
       }
 
+      h3 {
+        border-bottom: 2px dotted #098AC9;
+      }
+
       #pageContainer{
         background-color: white;
         border-radius: 5px;
@@ -64,6 +68,20 @@
         </div>
 
         <div class="optionsSection">
+        <h2>Year of Graduation (YOG)</h2>
+        <h3>YOG on student registration wizards</h3>
+        <p>
+          This extension can insert a grade selector drop-down box into student registration wizards, so you can simply choose a grade, and let it figure out the YOG and enter it in automatically.
+        </p>
+
+        <p>
+          <input type="checkbox" id="chkShowGradeDropdownOnRegWizard" > Show a grade selector on student registration wizards
+          <br/>
+          <input style="margin-bottom: 0; padding-bottom: 0;" type="checkbox" id="chkHideYearofGraduationFields" > Also hide the "Year of Graduation" fields from registration wizards (only show the grade selector).
+        </p>
+        </div>
+
+        <div class="optionsSection">
         <h2>Problems or concerns?</h2>
         <p>Visit this addon's GitHub repository to report issues or view source code: <br><a href="https://github.com/LivingSkySchoolDivision/MySchoolSaskEnhancementSuite">https://github.com/LivingSkySchoolDivision/MySchoolSaskEnhancementSuite</a></p>
         <p>This extension does not collect any data from you or your web browser.</p>
@@ -71,7 +89,7 @@
 
         <div class="optionsSection" style="font-size: 75%">          
         <h2>Testing and Debugging Options</h2>
-          <input type="checkbox" id="chkShowItWorks" >Show "It Works" banner at the top of affected web pages
+          <input type="checkbox" id="chkShowItWorks" > Show "It Works" banner at the top of affected web pages
           <br/><br/>
           <input type="button" id="btnResetSettingsToDefault" value="Reset all settings to defaults" />
           <br/><br/>
