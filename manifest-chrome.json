@@ -1,22 +1,23 @@
 {
   "manifest_version": 2,
   "name": "MySchoolSask Enhancement Suite",
+  "options_page": "/pages/options.html",
   "version": "0.2",
 
   "description": "Adds enhancements to MySchoolSask. Only useful if you already have access to MySchoolSask.",
 
+  "background": {
+    "scripts": ["/js/background.js"]
+  },
   "content_scripts": [
     {
       "matches": ["*://*.myschoolsask.com/aspen/*"],
-      "js": ["jquery-3.3.1.min.js", "myschoolsask.com.js"]
+      "js": ["/lib/jquery-3.3.1.min.js", "/js/myschoolsask.com.js"]
     }
   ],
   "icons": {
     "48": "img/msst_48.png",
     "96": "img/msst_96.png"
   },
-  "options_ui": {
-    "page": "options.html"
-  },  
-  "permissions": ["storage"]
+  "permissions": ["storage"]  
 }

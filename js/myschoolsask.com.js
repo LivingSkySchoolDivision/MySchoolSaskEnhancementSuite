@@ -1,7 +1,3 @@
-function onError(error) {
-  console.log("Error: " + error);
-}
-
 function logMsg(msg) {
 	console.log("MSSES: " + msg);
 }

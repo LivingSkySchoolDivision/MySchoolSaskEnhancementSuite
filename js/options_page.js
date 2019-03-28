@@ -95,7 +95,7 @@ $("#btnResetSettingsToDefault").on('click', function() {
 });
 
 /// Visually updates the fields on the options page to match the stored settings, or the defauls
-function updateFields_Callback(settings) {  
+function onSyncSettingsLoaded(settings) {  
   var blnItWorks = settings["lShowItWorksBanner"] === true || false;
  
   // Debug banner
@@ -176,8 +176,38 @@ function updateFields_Callback(settings) {
   }
 }
 
-function updateFields() {
-  var savedSettings = chrome.storage.sync.get(updateFields_Callback);
+function onLocalSettingsLoaded(settings) {
+  var isFirstRunText = "Yes";
+  if (settings.hascompletedfirstrun == true) {
+    isFirstRunText = "No";
+  }
+
+  var lastVersionSeenText = "Unknown";
+  if (settings.lastversionseen != null) {
+    lastVersionSeenText = "v" + settings.lastversionseen;
+  }
+
+  $("#lblFirstRun").text(isFirstRunText);
+  $("#lblLastVersionSeen").text(lastVersionSeenText);
+
+  // If this is the first time the extension has been run, indicate that we've seen the options screen
+  if (settings.hascompletedfirstrun != true) {
+    chrome.storage.local.set({    
+      hascompletedfirstrun: true
+    });
+  }
+
+  // Save the last version of this addon that we've seen, so we can detect updates
+  chrome.storage.local.set({    
+    lastversionseen: chrome.runtime.getManifest().version
+  });
 }
 
+function updateFields() {
+  var savedSettings = chrome.storage.local.get(onLocalSettingsLoaded);
+  var savedSettings = chrome.storage.sync.get(onSyncSettingsLoaded);
+}
+
+$("#lblExtensionVersion").text("v" + chrome.runtime.getManifest().version);
 document.addEventListener("DOMContentLoaded", updateFields);
+

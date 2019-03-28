@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <style type="text/css">
       body {
+        background-color: rgb(100,125,100);
       }
 
       h1 {
@@ -30,8 +31,7 @@
       }
 
       .optionsSection {
-        margin-top: 35px;
-        padding-bottom: 35px;
+        padding-bottom: 25px;
       }
 
       input[type="radio"] {
@@ -39,13 +39,13 @@
         margin-bottom: 5px;
       }
     </style>
+    <script type="text/javascript" src="/lib/jquery-3.3.1.min.js"></script>
   </head>
-  <script type="text/javascript" src="/jquery-3.3.1.min.js"></script>
 
   <body>
   <div id="pageContainer">
     <form id="options_form">
-    	<h1>MySchoolSask Enhancement Suite Options</h1>
+    	<h1>MySchoolSask Enhancement Suite <label id="lblExtensionVersion"></label></h1>
       <div class="optionsSection">
       <h2>Session Timeouts</h2>
         <p>This addon can override the pre-programmed login session timeout, so that your session doesn't get "timed out" as often.</p>
@@ -66,18 +66,25 @@
         <div class="optionsSection">
         <h2>Problems or concerns?</h2>
         <p>Visit this addon's GitHub repository to report issues or view source code: <br><a href="https://github.com/LivingSkySchoolDivision/MySchoolSaskEnhancementSuite">https://github.com/LivingSkySchoolDivision/MySchoolSaskEnhancementSuite</a></p>
+        <p>This extension does not collect any data from you or your web browser.</p>
         </div>
 
-        <div class="optionsSection">          
+        <div class="optionsSection" style="font-size: 75%">          
         <h2>Testing and Debugging Options</h2>
           <input type="checkbox" id="chkShowItWorks" >Show "It Works" banner at the top of affected web pages
           <br/><br/>
           <input type="button" id="btnResetSettingsToDefault" value="Reset all settings to defaults" />
+          <br/><br/>
+          <div style="color: rgba(0,0,0,0.3);">
+            First run? <label id="lblFirstRun">??</label>
+            <br/>
+            Last version seen: <label id="lblLastVersionSeen">??</label>
+          </div>
         </div>
     </form>
 
-    <script src="options.js"></script>
   </div>
+    <script type="text/javascript" src="/js/options_page.js"></script>
   </body>
 
 </html>
