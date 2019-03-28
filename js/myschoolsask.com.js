@@ -70,7 +70,87 @@ function onSettingsLoaded(settings) {
  				// Inject some YOG helpers
  				$("#gradeLevelInput").parent().parent().parent().parent().parent().parent().before(
  					"<tr><td class=\"detailProperty headerLabelBackground\">" + 
- 					"<b style=\"color: #086a39;\">Grade<span class=\"requiredFieldFlag\">&nbsp;*</span></td><td class=\"detailValue\"><script language=\"javascript\">" +
+ 					"<b style=\"color: #086a39;\">Grade<span class=\"requiredFieldFlag\">&nbsp;*</span></td><td class=\"detailValue\">" + 
+ 					"<script language=\"javascript\">" +
+ 					"function mssesUpdateGradeDropdownFromYOG() {" +
+ 					"  try {" + 
+ 					"    var form = document.forms['wizardForm'];" +
+ 					"    var yogValue = form.elements[\"value(stdYog)\"].value;" +
+ 					"    if (yogValue != '') {" +
+ 					"      var yogValueInt =  parseInt(yogValue);" +
+ 					"      if (yogValueInt > 0) { " +
+ 					"        var newSelectedIndex = 0;" +
+ 					"        var d = new Date(); " +
+ 					"        var currentSchoolYear = d.getFullYear();" +
+ 					"        var curMonth = d.getMonth; " +
+ 					"        if ((curMonth >= 7) && (curMonth <= 11)) { newYog + 1; }" +
+ 					"        switch(yogValueInt) {" +
+ 					"          case (currentSchoolYear) : " +
+ 					"            /* Grade 12 */ " +
+ 					"            newSelectedIndex = 16;" +
+ 					"            break;" +
+ 					"          case (currentSchoolYear + 1) : " +
+ 					"            /* Grade 11 */ " +
+ 					"            newSelectedIndex = 15;" +
+ 					"            break;" +
+ 					"          case (currentSchoolYear + 2) : " +
+ 					"            /* Grade 10 */ " +
+ 					"            newSelectedIndex = 14;" +
+ 					"            break;" +
+ 					"          case (currentSchoolYear + 3) : " +
+ 					"            /* Grade 9 */ " +
+ 					"            newSelectedIndex = 13;" +
+ 					"            break;" +
+ 					"          case (currentSchoolYear + 4) : " +
+ 					"            /* Grade 8 */ " +
+ 					"            newSelectedIndex = 12;" +
+ 					"            break;" +
+ 					"          case (currentSchoolYear + 5) : " +
+ 					"            /* Grade 7 */ " +
+ 					"            newSelectedIndex = 11;" +
+ 					"            break;" +
+ 					"          case (currentSchoolYear + 6) : " +
+ 					"            /* Grade 6 */ " +
+ 					"            newSelectedIndex = 10;" +
+ 					"            break;" +
+ 					"          case (currentSchoolYear + 7) : " +
+ 					"            /* Grade 5 */ " +
+ 					"            newSelectedIndex = 9;" +
+ 					"            break;" +
+ 					"          case (currentSchoolYear + 8) : " +
+ 					"            /* Grade 4 */ " +
+ 					"            newSelectedIndex = 8;" +
+ 					"            break;" +
+ 					"          case (currentSchoolYear + 9) : " +
+ 					"            /* Grade 3 */ " +
+ 					"            newSelectedIndex = 7;" +
+ 					"            break;" +
+ 					"          case (currentSchoolYear + 10) : " +
+ 					"            /* Grade 2 */ " +
+ 					"            newSelectedIndex = 6;" +
+ 					"            break;" +
+ 					"          case (currentSchoolYear + 11) : " +
+ 					"            /* Grade 1 */ " +
+ 					"            newSelectedIndex = 5;" +
+ 					"            break;" +
+ 					"          case (currentSchoolYear + 12) : " +
+ 					"            /* Grade K */ " +
+ 					"            newSelectedIndex = 4;" +
+ 					"            break;" +
+ 					"          case (currentSchoolYear + 13) : " +
+ 					"            /* Grade PK or PK 2/2 */ " +
+ 					"            newSelectedIndex = 3;" +
+ 					"            break;" +
+ 					"          case (currentSchoolYear + 14) : " +
+ 					"            /* Grade PK 1/2 */ " +
+ 					"            newSelectedIndex = 1;" +
+ 					"            break;" +
+ 					"        }" +
+ 					"        if (newSelectedIndex > 0) { form.elements[\"mssesGradeDropdown\"].selectedIndex = newSelectedIndex; }" +
+ 					"      }" +
+ 					"    }" +
+ 					"  } catch {} " +
+ 					"}" +
  					"function mssesUpdateYog(grade) { " +
  					" try { " +
  					" var form = document.forms['wizardForm'];" +
@@ -138,10 +218,11 @@ function onSettingsLoaded(settings) {
 					" form.elements[\"value(stdYog)\"].dispatchEvent(event); " +
  					" } catch {} " +
  					" return true;} " +
+ 					" $(document).ready(function() { mssesUpdateGradeDropdownFromYOG(); });" +
  					"</script>" +
  					"<select id=\"mssesGradeDropdown\" onChange=\"mssesUpdateYog();\"><option>PLEASE SELECT</option><option>Pre-K (Year 1/2)</option><option>Pre-K (Year 2/2)</option><option>Pre-K</option><option>Kindergarten</option><option>Grade 1</option><option>Grade 2</option><option>Grade 3</option><option>Grade 4</option><option>Grade 5</option><option>Grade 6</option><option>Grade 7</option><option>Grade 8</option><option>Grade 9</option><option>Grade 10</option><option>Grade 11</option><option>Grade 12</option></select>" +
  					" &nbsp; <sup><i style=\"color: #086a39;\">*Grade field made possible by MySchoolSask Enhancement Suite</i></sup>" +
- 					"</td></tr>"
+ 					"</td></tr>" 					
  					);
 
  			}
