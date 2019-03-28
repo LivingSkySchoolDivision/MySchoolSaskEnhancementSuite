@@ -8,6 +8,7 @@ This addon and it's authors are not directly affiliated with MySchoolSask. This 
 # Current features
 This addon offers the following enhancements, each toggleable from this addon's options page:
 * Can override or disable the login session timeout, allowing you to stay logged in longer without having to sign in again
+* Can provide a grade selector drop-down box on student registration wizards, as an alternative to having to calculate the year of graduation
 
 # How to install
 ## Firefox
