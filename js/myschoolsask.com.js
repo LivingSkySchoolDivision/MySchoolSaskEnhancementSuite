@@ -2,14 +2,31 @@ function logMsg(msg) {
 	console.log("MSSES: " + msg);
 }
 
-function insertYOGGradeSelector(settings) {	
-	// Check if we're on the student registration page
-	if (document.title.toLowerCase().includes("student registration")) {
+function insertYOGGradeSelector(settings) {
+// Check if we're on the promote/demote page
+	if (
+		(document.title.toLowerCase().includes("promote/demote student")) ||
+		(document.title.toLowerCase().includes("student registration"))
+		) {
+
 		// Check to see if the YOG element exists on the page
 		if($("#gradeLevelInput").length) {
-			logMsg("Inserting YOG Grade selector");
+			logMsg("Inserting YOG Grade selector (Promote/Demote Wizard)");
 			// YOG is always the year that june is in
 			// If the month is between 8(-1) and 12(-1), add one
+
+			var formName = "UNKNOWN-DOES-NOT-EXIST";
+			var yogFieldName = "UNKNOWN-DOES-NOT-EXIST";
+
+			if (document.title.toLowerCase().includes("promote/demote student")) {
+				formName = "statusChangeForm";
+				yogFieldName = "yog"; 
+			}
+
+			if (document.title.toLowerCase().includes("student registration")) {
+				formName = "wizardForm";
+				yogFieldName = "value(stdYog)";
+			}
 
 			// Inject some YOG helpers
 			$("#gradeLevelInput").parent().parent().parent().parent().parent().parent().before(
@@ -18,8 +35,8 @@ function insertYOGGradeSelector(settings) {
 				"<script language=\"javascript\">" +
 				"function mssesUpdateGradeDropdownFromYOG() {" +
 				"  try {" + 
-				"    var form = document.forms['wizardForm'];" +
-				"    var yogValue = form.elements[\"value(stdYog)\"].value;" +
+				"    var form = document.forms['" + formName + "'];" +
+				"    var yogValue = form.elements['" + yogFieldName + "'].value;" +
 				"    if (yogValue != '') {" +
 				"      var yogValueInt =  parseInt(yogValue);" +
 				"      if (yogValueInt > 0) { " +
@@ -96,8 +113,8 @@ function insertYOGGradeSelector(settings) {
 				"  } catch {} " +
 				"}" +
 				"function mssesUpdateYog(grade) { " +
-				" try { " +
-				" var form = document.forms['wizardForm'];" +
+				/*" try { " +*/
+				" var form = document.forms['" + formName + "'];" +
 				" var d = new Date(); " +
 				" var newYog = d.getFullYear();" +
 				" var curMonth = d.getMonth; " +
@@ -157,10 +174,11 @@ function insertYOGGradeSelector(settings) {
 				"     break;" +
 				" } " +
 				" newYog = newYog + yogYearAdjust;" +
-				" form.elements[\"value(stdYog)\"].value = newYog;" +
+				" console.log(\"Adjusting YOG to \" + newYog); " +
+				" form.elements['" + yogFieldName + "'].value = newYog; " +
 				" var event = new Event('change'); " +
-			" form.elements[\"value(stdYog)\"].dispatchEvent(event); " +
-				" } catch {} " +
+				" form.elements['" + yogFieldName + "'].dispatchEvent(event); " +
+				/*" } catch {} " +*/
 				" return true;} " +
 				" $(document).ready(function() { mssesUpdateGradeDropdownFromYOG(); });" +
 				"</script>" +
@@ -171,15 +189,22 @@ function insertYOGGradeSelector(settings) {
 
 		}
 	}
-}
+}	
 
 function hideYOGFields(settings) {
 	// Only do this if we are also inserting grade selector, so we dont break the form
 	if (settings.lShowYOGGradeDropdowns == true) {
-		logMsg("Hiding YOG settings row");
 
-		// Hide the existing grade and YOG fields
-		$("#gradeLevelInput").parent().parent().parent().parent().parent().parent().hide();
+		// Make sure we're on the right page
+		if ( 
+			(document.title.toLowerCase().includes("student registration")) || 
+			(document.title.toLowerCase().includes("promote/demote student"))
+			) {
+			logMsg("Hiding YOG settings row");
+
+			// Hide the existing grade and YOG fields
+			$("#gradeLevelInput").parent().parent().parent().parent().parent().parent().hide();
+		}
 	}
 }
 
