@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "MySchoolSask Enhancement Suite",
   "options_page": "/pages/options.html",
-  "version": "0.3",
+  "version": "0.3.1",
 
   "description": "Adds enhancements to MySchoolSask. Only useful if you already have access to MySchoolSask.",
 
@@ -19,5 +19,5 @@
     "48": "img/msst_48.png",
     "96": "img/msst_96.png"
   },
-  "permissions": ["storage"]  
+  "permissions": ["storage"]
 }

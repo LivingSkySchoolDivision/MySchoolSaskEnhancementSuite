@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "MySchoolSask Enhancement Suite",
-  "version": "0.3",
+  "version": "0.3.1",
 
   "description": "Adds enhancements to MySchoolSask. Only useful if you already have access to MySchoolSask.",
 
@@ -23,7 +23,7 @@
     "browser_style": true,
     "open_in_tab": true
 
-  },  
+  },
   "permissions": ["storage"],
   "applications": {
     "gecko": {

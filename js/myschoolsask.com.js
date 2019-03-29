@@ -20,7 +20,7 @@ function insertYOGGradeSelector(settings) {
 
 			if (document.title.toLowerCase().includes("promote/demote student")) {
 				formName = "statusChangeForm";
-				yogFieldName = "yog"; 
+				yogFieldName = "yog";
 			}
 
 			if (document.title.toLowerCase().includes("student registration")) {
@@ -30,11 +30,11 @@ function insertYOGGradeSelector(settings) {
 
 			// Inject some YOG helpers
 			$("#gradeLevelInput").parent().parent().parent().parent().parent().parent().before(
-				"<tr><td class=\"detailProperty headerLabelBackground\">" + 
-				"<b style=\"color: #086a39;\">Grade<span class=\"requiredFieldFlag\">&nbsp;*</span></td><td class=\"detailValue\">" + 
+				"<tr><td class=\"detailProperty headerLabelBackground\">" +
+				"<b style=\"color: #086a39;\">Grade<span class=\"requiredFieldFlag\">&nbsp;*</span></td><td class=\"detailValue\">" +
 				"<script language=\"javascript\">" +
 				"function mssesUpdateGradeDropdownFromYOG() {" +
-				"  try {" + 
+				"  try {" +
 				"    var form = document.forms['" + formName + "'];" +
 				"    var yogValue = form.elements['" + yogFieldName + "'].value;" +
 				"    if (yogValue != '') {" +
@@ -113,7 +113,6 @@ function insertYOGGradeSelector(settings) {
 				"  } catch {} " +
 				"}" +
 				"function mssesUpdateYog(grade) { " +
-				/*" try { " +*/
 				" var form = document.forms['" + formName + "'];" +
 				" var d = new Date(); " +
 				" var newYog = d.getFullYear();" +
@@ -174,30 +173,27 @@ function insertYOGGradeSelector(settings) {
 				"     break;" +
 				" } " +
 				" newYog = newYog + yogYearAdjust;" +
-				" console.log(\"Adjusting YOG to \" + newYog); " +
 				" form.elements['" + yogFieldName + "'].value = newYog; " +
 				" var event = new Event('change'); " +
 				" form.elements['" + yogFieldName + "'].dispatchEvent(event); " +
-				/*" } catch {} " +*/
 				" return true;} " +
 				" $(document).ready(function() { mssesUpdateGradeDropdownFromYOG(); });" +
 				"</script>" +
 				"<select id=\"mssesGradeDropdown\" onChange=\"mssesUpdateYog();\"><option>PLEASE SELECT</option><option>Pre-K (Year 1/2)</option><option>Pre-K (Year 2/2)</option><option>Pre-K</option><option>Kindergarten</option><option>Grade 1</option><option>Grade 2</option><option>Grade 3</option><option>Grade 4</option><option>Grade 5</option><option>Grade 6</option><option>Grade 7</option><option>Grade 8</option><option>Grade 9</option><option>Grade 10</option><option>Grade 11</option><option>Grade 12</option></select>" +
 				" &nbsp; <sup><i style=\"color: #086a39;\">*Grade field made possible by MySchoolSask Enhancement Suite</i></sup>" +
-				"</td></tr>" 					
+				"</td></tr>"
 				);
-
 		}
 	}
-}	
+}
 
 function hideYOGFields(settings) {
 	// Only do this if we are also inserting grade selector, so we dont break the form
 	if (settings.lShowYOGGradeDropdowns == true) {
 
 		// Make sure we're on the right page
-		if ( 
-			(document.title.toLowerCase().includes("student registration")) || 
+		if (
+			(document.title.toLowerCase().includes("student registration")) ||
 			(document.title.toLowerCase().includes("promote/demote student"))
 			) {
 			logMsg("Hiding YOG settings row");
@@ -209,17 +205,23 @@ function hideYOGFields(settings) {
 }
 
 function disableTimeout(settings) {
+	// We may need to periodically call tickleServer(); (from mss common.js) to keep the server up to date
+
 	// Inject code into every page that resets the timeout at an interval
 	logMsg("Disabling timeout");
-	$("body").before("<script language=\"javascript\">setInterval(function() { var d = new Date(); getParentX2Window().lastUserEvent = d.getTime(); }, 5000);</script>");		 
+	$("body").before("<script language=\"javascript\">setInterval(function() { var d = new Date(); getParentX2Window().lastUserEvent = d.getTime(); }, 5000);</script>");
 }
 
 function overrideTimeout(settings) {
-	// Override the timeoutDuration variable with our own value
-	// Get the timeout value
+	// Create our own activity timer
+	// Supress the built in activity timer by constantly pusing the current timestamp to it
+	// When _our_ activity timer expires:
+	//  - Stop supressing the builtin one
+	//  - Reset the builtin values so that they are obviously expired
+	//  - Wait for the next builtin timer check to expire the session for us
 
 	// New value of timeout in milliseconds
-	var iNewTimeoutValue = 1800000; 
+	var iNewTimeoutValue = 1800000;
 
 	switch(settings.iNewTimeoutLength) {
 		case 30 :
@@ -237,44 +239,73 @@ function overrideTimeout(settings) {
 		case 360 :
 			iNewTimeoutValue = 21600000; // 6 hours
 			break;
-		default: 
+		default:
 			iNewTimeoutValue = 1800000; // 30 minutes by default
 			break;
-	} 
+	}
 
-	$("head").after("<script language=\"javascript\">getParentX2Window().timeoutDuration = " + iNewTimeoutValue + "; getParentX2Window().sessionTimeout = " + iNewTimeoutValue + " + new Date().getTime();</script>");		 
+	// Do we need to periodically call tickleServer() to keep the session alive on the server side?
+
+	$("body").after("" +
+		"<script type=\"text/javascript\">" +
+		" var mssesSupressMSSTimeout = true; " +
+		" var mssesLastUserEvent = new Date().getTime(); " +
+		" function mssesGetLastActivity() { return getParentX2Window().mssesLastUserEvent; } " +
+		" function mssesUpdateLastActivity() { getParentX2Window().mssesLastUserEvent = new Date().getTime(); } " +
+		" function mssesCheckLastActivity() { " +
+		"   var msSinceLastActivity = (new Date().getTime() - mssesGetLastActivity()); " +
+		"   var msUntilSessionTimeout = " + iNewTimeoutValue + " - msSinceLastActivity; " +
+		"   if (msSinceLastActivity > " + iNewTimeoutValue + ") { " +
+		"      console.log('MSSES: Session timeout exceeded " + iNewTimeoutValue + "ms - expiring session, no longer supressing builtin timeouts. MSS should automatically timeout shortly.');" +
+		"      getParentX2Window().mssesSupressMSSTimeout = false; " +
+		"      getParentX2Window().lastUserEvent = 1;" +
+		"      getParentX2Window().sessionTimeout  = 1;" +
+		"      getParentX2Window().timeoutDuration  = 1;" +
+		"   } " +
+		" } " +
+		" $(document).keydown(function() { mssesUpdateLastActivity(); } ); " +
+		" $(document).click(function() { mssesUpdateLastActivity(); } ); " +
+		" setInterval(function() { mssesCheckLastActivity(); }, 11000);" +
+		" setInterval(function() { if (getParentX2Window().mssesSupressMSSTimeout == true) { getParentX2Window().lastUserEvent = new Date().getTime(); }}, 10000);" +
+		"</script>" +
+		"");
 
 	logMsg("overriding session timeout to: " + iNewTimeoutValue + "ms");
 }
 
 function showItWorksBanner(settings) {
 	logMsg("It works!");
-	$("body").before("<div style=\"font-size: 8pt; margin: 0; padding: 0; width: 100%; background-color: yellow; color: black;text-align: center;font-family: sans-serif;\">MySchoolSask Enhancement Suite is able to modify the contents of this page.</div>");		 
+	$("body").before("<div style=\"font-size: 8pt; margin: 0; padding: 0; width: 100%; background-color: yellow; color: black;text-align: center;font-family: sans-serif;\">MySchoolSask Enhancement Suite is able to modify the contents of this page.</div>");
 }
 
 function onSettingsLoaded(settings) {
-	
-	// Check if we should adjust the timeout
-	if (settings.sTimeoutOverrideMode == "disabletimeout") {
-		disabletimeout(settings);
-	} else if (settings.sTimeoutOverrideMode == "override") {
-		overrideTimeout(settings);
-	}
+	// Don't load any of this stuff on the login screen
+	if (!document.title.toLowerCase().includes("log on")) {
 
-	// Check if we should show the "It Works" banner
-	if (settings.lShowItWorksBanner == true) {
-		showItWorksBanner(settings);
-	}
-	
-	if (settings.lHideYOGRow == true) {
-		hideYOGFields(settings);
-	}
+		// Check if we should adjust the timeout
+		if (settings.sTimeoutOverrideMode == "disabletimeout") {
+			disableTimeout(settings);
+		} else if (settings.sTimeoutOverrideMode == "override") {
+			overrideTimeout(settings);
+		}
 
-	// Check if we should insert some YOG helpers
-	if (settings.lShowYOGGradeDropdowns == true) {
- 		insertYOGGradeSelector(settings);
+		// Check if we should show the "It Works" banner
+		if (settings.lShowItWorksBanner == true) {
+			showItWorksBanner(settings);
+		}
+
+		if (settings.lHideYOGRow == true) {
+			hideYOGFields(settings);
+		}
+
+		// Check if we should insert some YOG helpers
+		if (settings.lShowYOGGradeDropdowns == true) {
+	 		insertYOGGradeSelector(settings);
+	 	}
+ 	} else {
+ 		logMsg("Supressing all enhancements on login screen");
  	}
 }
 
 // Load the options and then handle the response we get back from browser storage
-var savedSettings = chrome.storage.sync.get(onSettingsLoaded);  
+var savedSettings = chrome.storage.sync.get(onSettingsLoaded);

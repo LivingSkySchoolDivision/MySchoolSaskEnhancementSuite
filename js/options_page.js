@@ -37,25 +37,25 @@ $("#rdbNewTimeoutLength_30").on('change', function() {
 
 $("#rdbNewTimeoutLength_60").on('change', function() {
   chrome.storage.sync.set({
-    iNewTimeoutLength: 60 
+    iNewTimeoutLength: 60
   });
 });
 
 $("#rdbNewTimeoutLength_120").on('change', function() {
   chrome.storage.sync.set({
-    iNewTimeoutLength: 120 
+    iNewTimeoutLength: 120
   });
 });
 
 $("#rdbNewTimeoutLength_240").on('change', function() {
   chrome.storage.sync.set({
-    iNewTimeoutLength: 240 
+    iNewTimeoutLength: 240
   });
 });
 
 $("#rdbNewTimeoutLength_360").on('change', function() {
   chrome.storage.sync.set({
-    iNewTimeoutLength: 360 
+    iNewTimeoutLength: 360
   });
 });
 
@@ -69,26 +69,26 @@ $("#rdbTimeoutOverrideMode_Disable").on('change', function() {
 $("#rdbTimeoutOverrideMode_Override").on('change', function() {
   enableTimeoutOptions();
 
-  chrome.storage.sync.set({    
+  chrome.storage.sync.set({
     sTimeoutOverrideMode: "override"
   });
 });
 
 $("#rdbTimeoutOverrideMode_None").on('change', function() {
   disableTimeoutOptions();
-  chrome.storage.sync.set({  
+  chrome.storage.sync.set({
     sTimeoutOverrideMode: "nooverride"
   });
 
 });
 
-$("#chkShowItWorks").on('change', function() {    
+$("#chkShowItWorks").on('change', function() {
   chrome.storage.sync.set({
-    lShowItWorksBanner: document.querySelector("#chkShowItWorks").checked 
+    lShowItWorksBanner: document.querySelector("#chkShowItWorks").checked
   });
 });
 
-$("#chkShowGradeDropdownOnRegWizard").on('change', function() {    
+$("#chkShowGradeDropdownOnRegWizard").on('change', function() {
   var showGradeDropdown = document.querySelector("#chkShowGradeDropdownOnRegWizard").checked || false;
   chrome.storage.sync.set({
     lShowYOGGradeDropdowns: showGradeDropdown
@@ -98,7 +98,7 @@ $("#chkShowGradeDropdownOnRegWizard").on('change', function() {
 
 });
 
-$("#chkHideYearofGraduationFields").on('change', function() {    
+$("#chkHideYearofGraduationFields").on('change', function() {
   var hideYOGRow = document.querySelector("#chkHideYearofGraduationFields").checked || false;
   chrome.storage.sync.set({
     lHideYOGRow: hideYOGRow
@@ -106,16 +106,16 @@ $("#chkHideYearofGraduationFields").on('change', function() {
 });
 
 
-$("#btnResetSettingsToDefault").on('click', function() {  
+$("#btnResetSettingsToDefault").on('click', function() {
  chrome.storage.sync.clear();
  location.reload();
 });
 
 /// Visually updates the fields on the options page to match the stored settings, or the defauls
-function onSyncSettingsLoaded(settings) {  
+function onSyncSettingsLoaded(settings) {
   console.log(settings);
   var blnItWorks = settings["lShowItWorksBanner"] === true || false;
- 
+
   // Debug banner
   document.querySelector("#chkShowItWorks").checked = blnItWorks;
 
@@ -156,14 +156,14 @@ function onSyncSettingsLoaded(settings) {
 
   // Session timeout values
   switch(settings["iNewTimeoutLength"]) {
-    case 30 :      
+    case 30 :
       document.querySelector("#rdbNewTimeoutLength_30").checked = true;
       document.querySelector("#rdbNewTimeoutLength_60").checked = false;
       document.querySelector("#rdbNewTimeoutLength_120").checked = false;
       document.querySelector("#rdbNewTimeoutLength_240").checked = false;
       document.querySelector("#rdbNewTimeoutLength_360").checked = false;
       break;
-    case 60 :      
+    case 60 :
       document.querySelector("#rdbNewTimeoutLength_30").checked = false;
       document.querySelector("#rdbNewTimeoutLength_60").checked = true;
       document.querySelector("#rdbNewTimeoutLength_120").checked = false;
@@ -177,21 +177,21 @@ function onSyncSettingsLoaded(settings) {
       document.querySelector("#rdbNewTimeoutLength_240").checked = false;
       document.querySelector("#rdbNewTimeoutLength_360").checked = false;
       break;
-    case 240 :      
+    case 240 :
       document.querySelector("#rdbNewTimeoutLength_30").checked = false;
       document.querySelector("#rdbNewTimeoutLength_60").checked = false;
       document.querySelector("#rdbNewTimeoutLength_120").checked = false;
       document.querySelector("#rdbNewTimeoutLength_240").checked = true;
       document.querySelector("#rdbNewTimeoutLength_360").checked = false;
       break;
-    case 360 :      
+    case 360 :
       document.querySelector("#rdbNewTimeoutLength_30").checked = false;
       document.querySelector("#rdbNewTimeoutLength_60").checked = false;
       document.querySelector("#rdbNewTimeoutLength_120").checked = false;
       document.querySelector("#rdbNewTimeoutLength_240").checked = false;
       document.querySelector("#rdbNewTimeoutLength_360").checked = true;
       break;
-    default :      
+    default :
       document.querySelector("#rdbNewTimeoutLength_30").checked = true;
       document.querySelector("#rdbNewTimeoutLength_60").checked = false;
       document.querySelector("#rdbNewTimeoutLength_120").checked = false;
@@ -217,13 +217,13 @@ function onLocalSettingsLoaded(settings) {
 
   // If this is the first time the extension has been run, indicate that we've seen the options screen
   if (settings.hascompletedfirstrun != true) {
-    chrome.storage.local.set({    
+    chrome.storage.local.set({
       hascompletedfirstrun: true
     });
   }
 
   // Save the last version of this addon that we've seen, so we can detect updates
-  chrome.storage.local.set({    
+  chrome.storage.local.set({
     lastversionseen: chrome.runtime.getManifest().version
   });
 }

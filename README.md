@@ -2,10 +2,10 @@
 This browser extension adds usability enhancements to the MySchoolSask web app.
 
 # What is MySchoolSask?
-MySchoolSask is a provincial student information system for school divisions in Saskatchewan, Canada. 
+MySchoolSask is a provincial student information system for school divisions in Saskatchewan, Canada.
 
 # Disclaimer
-* This extension and it's authors are not directly affiliated with MySchoolSask. 
+* This extension and it's authors are not directly affiliated with MySchoolSask.
 * This extension is *not* endorsed or approved by MySchoolSask.
 * This extension may make your MySchoolSask account less secure if you leave your computer unattended and unlocked. **Lock your computer if you need to leave it unattended for any amount of time**
 * This extension can't give you access to any data or features of MySchoolSask that you wouldn't normally have.
