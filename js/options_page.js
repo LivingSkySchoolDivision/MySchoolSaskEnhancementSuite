@@ -105,11 +105,17 @@ $("#chkHideYearofGraduationFields").on('change', function() {
   });
 });
 
-
 $("#btnResetSettingsToDefault").on('click', function() {
  chrome.storage.sync.clear();
  location.reload();
 });
+
+$("#chkEnableCheckboxMultiSelect").on('change', function() {
+  chrome.storage.sync.set({
+    lEnableCheckboxMultiSelect: document.querySelector("#chkEnableCheckboxMultiSelect").checked
+  });
+});
+
 
 /// Visually updates the fields on the options page to match the stored settings, or the defauls
 function onSyncSettingsLoaded(settings) {
@@ -123,8 +129,6 @@ function onSyncSettingsLoaded(settings) {
   document.querySelector("#chkShowGradeDropdownOnRegWizard").checked = (settings.lShowYOGGradeDropdowns || false);
   document.querySelector("#chkHideYearofGraduationFields").checked = (settings.lHideYOGRow || false);
   document.querySelector("#chkHideYearofGraduationFields").disabled = !settings.lShowYOGGradeDropdowns;
-
-
 
   // Session timeouts
   switch(settings["sTimeoutOverrideMode"]) {
@@ -235,4 +239,3 @@ function updateFields() {
 
 $("#lblExtensionVersion").text("v" + chrome.runtime.getManifest().version);
 document.addEventListener("DOMContentLoaded", updateFields);
-

@@ -278,6 +278,18 @@ function showItWorksBanner(settings) {
 	$("body").before("<div style=\"font-size: 8pt; margin: 0; padding: 0; width: 100%; background-color: yellow; color: black;text-align: center;font-family: sans-serif;\">MySchoolSask Enhancement Suite is able to modify the contents of this page.</div>");
 }
 
+function enableShiftClickCheckboxes(settings) {
+	logMsg("Enabling shift+clicking checkboxes");
+	$("body").before("<script type=\"text/javascript\">" +
+	    "const allCheckBoxes = Array.from(document.querySelectorAll('[type=\"checkbox\"]'));" +
+	    "let lastCheckedBox;" +
+	    "function changeBox(event) { if (event.shiftKey && this != lastCheckedBox) { checkIntermediateBoxes(lastCheckedBox, this); } lastCheckedBox = this; } " +
+	    "function checkIntermediateBoxes(first, second) { if (allCheckBoxes.indexOf(first) > allCheckBoxes.indexOf(second)) { [second, first] = [first, second]; } intermediateBoxes(first, second).forEach(box => box.checked = true); } " +
+	    "function intermediateBoxes(start, end) { return allCheckBoxes.filter((item, key) => { return allCheckBoxes.indexOf(start) < key && key < allCheckBoxes.indexOf(end); }); } " +
+	    "allCheckBoxes.forEach(item => item.addEventListener('click', changeBox));  " +
+	    "</script>");
+}
+
 function onSettingsLoaded(settings) {
 	// Don't load any of this stuff on the login screen
 	if (!document.title.toLowerCase().includes("log on")) {
@@ -302,6 +314,13 @@ function onSettingsLoaded(settings) {
 		if (settings.lShowYOGGradeDropdowns == true) {
 	 		insertYOGGradeSelector(settings);
 	 	}
+
+	 	// Check if we should enable shift+clicking checkboxes
+	 	if (settings.lEnableCheckboxMultiSelect == true) {
+	 		enableShiftClickCheckboxes(settings);
+	 	}
+
+
  	} else {
  		logMsg("Supressing all enhancements on login screen");
  	}

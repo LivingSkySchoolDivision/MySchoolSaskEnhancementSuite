@@ -14,6 +14,7 @@ MySchoolSask is a provincial student information system for school divisions in 
 This addon offers the following enhancements, each toggleable from this addon's options page:
 * Can override or disable the login session timeout, allowing you to stay logged in longer without having to sign in again
 * Can provide a grade selector drop-down box on student registration wizards, as an alternative to having to calculate the year of graduation
+* Can allow the user to quickly check multiple checkboxes by clicking one, then shift+clicking another, having each checkbox between the two get checked automatically
 
 # How to install
 ## Firefox
