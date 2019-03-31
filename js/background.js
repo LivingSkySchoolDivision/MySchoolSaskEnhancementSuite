@@ -1,6 +1,10 @@
 var MSSES_VERSION = chrome.runtime.getManifest().version
 
-function onSettingsLoaded(settings) {
+function logMsg(msg) {
+	console.log("MSSES: " + msg);
+}
+
+function onLocalSettingsLoaded(settings) {
 	// Open the options screen if this is the first time the addon has been run
 	if (settings.hascompletedfirstrun != true) {
 		chrome.tabs.create({
@@ -20,5 +24,10 @@ function onSettingsLoaded(settings) {
 	}
 }
 
+function onSyncSettingsLoaded(settings) {
+	// Set defaults for options that haven't been set	
+}
+
 console.log("Loading MySchoolSask Enhancement Suite " + MSSES_VERSION);
-var savedSettings = chrome.storage.local.get(onSettingsLoaded);
+var savedSettings = chrome.storage.local.get(onLocalSettingsLoaded);
+var savedSettings = chrome.storage.sync.get(onSyncSettingsLoaded);

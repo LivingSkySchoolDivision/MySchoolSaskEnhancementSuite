@@ -42,6 +42,17 @@
         margin-right: 7px;
         margin-bottom: 5px;
       }
+
+      .new {
+        vertical-align: super;                
+        font-size: 5pt;
+        font-style: normal;
+        color: white;
+        background-color: red;        
+        padding: 5px;
+        border-radius: 5px;
+      }
+
     </style>
     <script type="text/javascript" src="/lib/jquery-3.3.1.min.js"></script>
   </head>
@@ -53,6 +64,15 @@
       <div class="optionsSection">
       <h2>Session Timeouts</h2>
         <p>This extension can override the pre-programmed login session timeout, so that your session doesn't get "timed out" as often.</p>
+        <div style="font-size:10pt; border: 2px solid red; border-radius: 5px; padding: 15px; padding-top: 2px; padding-bottom: 2px; background-color: rgba(255,0,0,0.1);">
+          <p>
+            <b style="color: red;">Warning:</b> Login session timeouts are there to protect your MySchoolSask account from unauthorized use. Disabling session timeouts will make your MySchoolSask account less secure.
+          </p>
+          <p>
+            <b>Always lock your computer when you are not using it</b>, so that others can't use your account. To quickly lock your computer, press <i>WINDOWS KEY + L</i>.
+          </p>
+        </div>
+        <br/>
         <input type="radio" name="rdbTimeoutOverrideMode" id="rdbTimeoutOverrideMode_None">Do not adjust session timeouts (More secure, but more logging in)<br/>
         <input type="radio" name="rdbTimeoutOverrideMode" id="rdbTimeoutOverrideMode_Override">Adjust session timeout to the following:<br/>
         <p style="padding-left: 25px;">
@@ -62,9 +82,9 @@
           <input disabled="true" type="radio" name="rdbNewTimeoutLength" id="rdbNewTimeoutLength_240" value="240">4 Hours<br/>
           <input disabled="true" type="radio" name="rdbNewTimeoutLength" id="rdbNewTimeoutLength_360" value="360">6 Hours<br/>
         </p>
-        <input type="radio" name="rdbTimeoutOverrideMode" id="rdbTimeoutOverrideMode_Disable">Disable session timeout completely. (The login session will end when the browser closes)<br/>
-        <br/>
-        <i><B>Note:</B> Login sessions are terminated when you close your browser, regardless of any setting currently offered by this browser extension.</i>
+        <input type="radio" name="rdbTimeoutOverrideMode" id="rdbTimeoutOverrideMode_Disable">Disable session timeout completely. (The login session will end when the browser closes)        
+        <p style="font-size: 12pt;">
+        <i><B>Note:</B> Login sessions are terminated when you close your browser, regardless of any setting currently offered by this browser extension.</i></p>
         </div>
 
         <div class="optionsSection">
@@ -99,14 +119,18 @@
 
         <div class="optionsSection" style="font-size: 75%">
         <h2>Testing and Debugging Options</h2>
-          <input type="checkbox" id="chkShowItWorks" > Show "It Works" banner at the top of affected web pages
-          <br/><br/>
-          <input type="button" id="btnResetSettingsToDefault" value="Reset all settings to defaults" />
-          <br/><br/>
-          <div style="color: rgba(0,0,0,0.3);">
-            First run? <label id="lblFirstRun">??</label>
-            <br/>
-            Last version seen: <label id="lblLastVersionSeen">??</label>
+          <input type="checkbox" id="chkShowDebugOptions" > Show testing and debug options
+          <div id="divDebugOptions" style="display: none;">
+            <input type="checkbox" id="chkShowItWorks" > Show "It Works" banner at the top of affected web pages
+            <br/><br/>
+            <input type="button" id="btnClearLocalStorage" value="Clear all extension settings and data" /> 
+            <input type="button" id="btnResetSettingsToDefault" value="Reset all settings to defaults" />
+            <br/><br/>
+            <div style="color: rgba(0,0,0,0.3);">
+              First run? <label id="lblFirstRun">??</label>
+              <br/>
+              Last version seen: <label id="lblLastVersionSeen">??</label>
+            </div>
           </div>
         </div>
     </form>

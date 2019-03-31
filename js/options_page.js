@@ -1,16 +1,5 @@
-function onError(error) {
-  console.log(`Error: ${error}`);
-}
-
-function doSave(e) {
-  e.preventDefault();
-  console.log("saving prevent timeout:" + document.querySelector("#chkPreventTimeout").checked);
-  console.log("saving it works banner: " + document.querySelector("#chkShowItWorks").checked);
-
-  chrome.storage.sync.set({
-    lCanPreventTimeout: document.querySelector("#chkPreventTimeout").checked,
-    lShowItWorksBanner: document.querySelector("#chkShowItWorks").checked
-  });
+function logMsg(msg) {
+  console.log("MSSES: " + msg);
 }
 
 function enableTimeoutOptions() {
@@ -105,9 +94,37 @@ $("#chkHideYearofGraduationFields").on('change', function() {
   });
 });
 
+$("#chkShowDebugOptions").on('change', function() {
+  var lShowDebugOptions = document.querySelector("#chkShowDebugOptions").checked || false;
+  if (lShowDebugOptions == true) {
+    $("#divDebugOptions").slideDown();
+  } else {
+    $("#divDebugOptions").slideUp();
+  }
+});
+
+
+$("#btnClearLocalStorage").on('click', function() {
+  logMsg("Clearing sync settings");
+  chrome.storage.sync.clear();
+
+  logMsg("Clearing local settings");
+  chrome.storage.local.clear();
+
+  alert("Extension local and sync data cleared. Note that refreshing or navigating to the options screen will automatically write settings to local and synced storage.");
+});
+
 $("#btnResetSettingsToDefault").on('click', function() {
- chrome.storage.sync.clear();
- location.reload();
+  chrome.storage.sync.clear();
+  chrome.storage.sync.set({
+        lShowItWorksBanner: false,
+        iNewTimeoutLength: 1800000,
+        sTimeoutOverrideMode: "nooverride",
+        lShowYOGGradeDropdowns: true,
+        lHideYOGRow: false,
+        lEnableCheckboxMultiSelect: true,
+  });
+  location.reload();
 });
 
 $("#chkEnableCheckboxMultiSelect").on('change', function() {
@@ -116,14 +133,60 @@ $("#chkEnableCheckboxMultiSelect").on('change', function() {
   });
 });
 
+function checkDefaultSettings(settings) {
+  if (settings.lShowItWorksBanner == null) {
+    logMsg("Defaulting new setting \"lShowItWorksBanner\" to false");
+    chrome.storage.sync.set({
+        lShowItWorksBanner: false
+      });
+  }
+
+  if (settings.iNewTimeoutLength == null) {
+    logMsg("Defaulting new setting \"iNewTimeoutLength\" to 1800000");
+    chrome.storage.sync.set({
+        iNewTimeoutLength: 1800000
+      });
+  }
+
+  if (settings.sTimeoutOverrideMode == null) {
+    logMsg("Defaulting new setting \"sTimeoutOverrideMode\" to nooverride");
+    chrome.storage.sync.set({
+        sTimeoutOverrideMode: "nooverride"
+      });
+  }
+
+  if (settings.lShowYOGGradeDropdowns == null) {
+    logMsg("Defaulting new setting \"lShowYOGGradeDropdowns\" to true");
+    chrome.storage.sync.set({
+        lShowYOGGradeDropdowns: true
+      });
+  }
+
+  if (settings.lHideYOGRow == null) {
+    logMsg("Defaulting new setting \"lHideYOGRow\" to false");
+    chrome.storage.sync.set({
+        lHideYOGRow: false
+      });
+  }
+
+  if (settings.lEnableCheckboxMultiSelect == null) {
+    logMsg("Defaulting new setting \"lEnableCheckboxMultiSelect\" to true");
+    chrome.storage.sync.set({
+        lEnableCheckboxMultiSelect: true
+      });
+  }
+}
 
 /// Visually updates the fields on the options page to match the stored settings, or the defauls
 function onSyncSettingsLoaded(settings) {
   console.log(settings);
-  var blnItWorks = settings["lShowItWorksBanner"] === true || false;
+  checkDefaultSettings(settings);
 
   // Debug banner
-  document.querySelector("#chkShowItWorks").checked = blnItWorks;
+  document.querySelector("#chkShowItWorks").checked = (settings.lShowItWorksBanner || false);
+
+  // Checkbox multiselect
+  document.querySelector("#chkEnableCheckboxMultiSelect").checked = (settings.lEnableCheckboxMultiSelect || false);
 
   // YOG
   document.querySelector("#chkShowGradeDropdownOnRegWizard").checked = (settings.lShowYOGGradeDropdowns || false);
