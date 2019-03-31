@@ -269,6 +269,7 @@ function onSyncSettingsLoaded(settings) {
 }
 
 function onLocalSettingsLoaded(settings) {
+  console.log(settings);
   var isFirstRunText = "Yes";
   if (settings.hascompletedfirstrun == true) {
     isFirstRunText = "No";
@@ -302,3 +303,12 @@ function updateFields() {
 
 $("#lblExtensionVersion").text("v" + chrome.runtime.getManifest().version);
 document.addEventListener("DOMContentLoaded", updateFields);
+
+// Check if we should show the "new version" or "new install" info boxes
+if (window.location.href.indexOf('justInstalled=true') != -1) {
+  $("#newInstallMessage").show();
+}
+
+if (window.location.href.indexOf('justUpdated=true') != -1) {
+  $("#newVersionMessage").show();
+}

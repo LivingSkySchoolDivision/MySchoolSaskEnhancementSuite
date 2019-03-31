@@ -53,16 +53,84 @@
         border-radius: 5px;
       }
 
+      .topInfoBox {
+        border-radius: 5px;
+        border: 1px solid green;
+        background-color: rgba(0,255,0,0.2);
+        padding: 16px;
+        font-size: 10pt;
+        margin-bottom: 5px;
+        padding-bottom: 5px;
+        padding-top: 5px;
+      }
+
+      .aboutButton {
+        display: inline-block;
+        width: 200px;
+        text-align: center;
+        border: 1px solid black;
+        padding: 6px;
+        text-decoration: none;
+        color: black;
+        background-color: rgba(0,0,0,0.1);
+        font-size: 10pt;
+      }
+
+      .aboutButton:hover {
+        background-color: rgba(255,255,255,1);
+      }
+
     </style>
     <script type="text/javascript" src="/lib/jquery-3.3.1.min.js"></script>
   </head>
 
   <body>
   <div id="pageContainer">
-    <form id="options_form">
-    	<h1>MySchoolSask Enhancement Suite <label id="lblExtensionVersion"></label></h1>
+    <form id="options_form">      
+    	<h1> MySchoolSask Enhancement Suite <label id="lblExtensionVersion"></label></h1>
+        
+        <div id="newVersionMessage" class="topInfoBox" style="display: none;">
+          <p>
+            <b>MySchoolSask Enhancement Suite has been updated automatically</b>
+          </p>
+          <p>
+            New features for version 0.4</label>:
+            <ul>
+              <li>Added checkbox multi-select feature, allowing you to shift+click a list of checkboxes to check multiple boxes at a time.</li>
+              <li>Style and content changes to the options page</li>
+            </ul>
+            View the full changelog <a href="https://github.com/LivingSkySchoolDivision/MySchoolSaskEnhancementSuite/releases">here</a>.
+          </p>
+        </div>
+
+        <div id="newInstallMessage" class="topInfoBox" style="display: none;">
+          <p>
+            <b>Thanks for installing MySchoolSask Enhancement Suite!</b>
+          </p>
+        </div>
+
       <div class="optionsSection">
-      <h2>Session Timeouts</h2>
+      <h2>About this extension</h2>     
+      <p>
+        This browser extension adds usability enhancements to the MySchoolSask web application.
+      </p> 
+        <ul style="font-size: 10pt;">
+          <li>This extension and it's authors are not directly affiliated with MySchoolSask.</li>
+          <li>This extension is not endorsed or approved by MySchoolSask.</li>          
+          <li>This extension <b>cannot</b> give you access to any data or features of MySchoolSask that you wouldn't normally have.</li>
+          <li>This extension <b>does not</b> collect or track anything from you or your web browser.</li>
+          <li>This extension is <a  target="_BLANK" href="https://github.com/LivingSkySchoolDivision/MySchoolSaskEnhancementSuite">open source</a> and is licenced under the <a target="_BLANK" href="https://raw.githubusercontent.com/LivingSkySchoolDivision/MySchoolSaskEnhancementSuite/master/LICENSE">MIT License</a>.</li>
+        </ul>       
+      </p>
+      <p>
+        <a target="_BLANK" href="https://github.com/LivingSkySchoolDivision/MySchoolSaskEnhancementSuite" class="aboutButton">View Source Code</a>
+        <a target="_BLANK" href="https://github.com/LivingSkySchoolDivision/MySchoolSaskEnhancementSuite/releases" class="aboutButton">Changelog</a>
+        <a target="_BLANK" href="https://github.com/LivingSkySchoolDivision/MySchoolSaskEnhancementSuite/issues" class="aboutButton">Issue tracker</a>
+      </p>        
+      </div>
+
+      <div class="optionsSection">
+      <h2>Login Session Timeouts</h2>
         <p>This extension can override the pre-programmed login session timeout, so that your session doesn't get "timed out" as often.</p>
         <div style="font-size:10pt; border: 2px solid red; border-radius: 5px; padding: 15px; padding-top: 2px; padding-bottom: 2px; background-color: rgba(255,0,0,0.1);">
           <p>
@@ -73,29 +141,23 @@
           </p>
         </div>
         <br/>
-        <input type="radio" name="rdbTimeoutOverrideMode" id="rdbTimeoutOverrideMode_None">Do not adjust session timeouts (More secure, but more logging in)<br/>
-        <input type="radio" name="rdbTimeoutOverrideMode" id="rdbTimeoutOverrideMode_Override">Adjust session timeout to the following:<br/>
-        <p style="padding-left: 25px;">
-          <input disabled="true" type="radio" name="rdbNewTimeoutLength" id="rdbNewTimeoutLength_30" value="30">30 Minutes <i>(MSS Default)</i><br/>
+        <input type="radio" name="rdbTimeoutOverrideMode" id="rdbTimeoutOverrideMode_None">Do not adjust login session timeouts<br/>
+        <input type="radio" name="rdbTimeoutOverrideMode" id="rdbTimeoutOverrideMode_Override">Adjust login session timeout to the following:<br/>
+        <p style="padding-left: 25px; margin-top: 2px;">
           <input disabled="true" type="radio" name="rdbNewTimeoutLength" id="rdbNewTimeoutLength_60" value="60">1 Hour<br/>
           <input disabled="true" type="radio" name="rdbNewTimeoutLength" id="rdbNewTimeoutLength_120" value="120">2 Hours<br/>
           <input disabled="true" type="radio" name="rdbNewTimeoutLength" id="rdbNewTimeoutLength_240" value="240">4 Hours<br/>
           <input disabled="true" type="radio" name="rdbNewTimeoutLength" id="rdbNewTimeoutLength_360" value="360">6 Hours<br/>
         </p>
-        <input type="radio" name="rdbTimeoutOverrideMode" id="rdbTimeoutOverrideMode_Disable">Disable session timeout completely. (The login session will end when the browser closes)        
+        <input type="radio" name="rdbTimeoutOverrideMode" id="rdbTimeoutOverrideMode_Disable">Keep my login session alive indefinitely
         <p style="font-size: 12pt;">
         <i><B>Note:</B> Login sessions are terminated when you close your browser, regardless of any setting currently offered by this browser extension.</i></p>
         </div>
 
         <div class="optionsSection">
         <h2>Year of Graduation (YOG)</h2>
-        <h3>YOG on student registration wizards</h3>
         <p>
-          This extension can insert a grade selector drop-down box into student registration wizards, so you can simply choose a grade, and let it figure out the YOG and enter it in automatically.
-        </p>
-
-        <p>
-          <input type="checkbox" id="chkShowGradeDropdownOnRegWizard" > Show a grade selector on student registration wizards
+          <input type="checkbox" id="chkShowGradeDropdownOnRegWizard"> Show a grade selector on student registration wizards
           <br/>
           <input style="margin-bottom: 0; padding-bottom: 0;" type="checkbox" id="chkHideYearofGraduationFields" > Also hide the "Year of Graduation" fields from registration wizards (only show the grade selector).
         </p>
@@ -109,12 +171,6 @@
         <p>
           <input type="checkbox" id="chkEnableCheckboxMultiSelect" > Enable checkbox multi-select with shift+click                    
         </p>
-        </div>
-
-        <div class="optionsSection">
-        <h2>Problems or concerns?</h2>
-        <p>Visit this addon's GitHub repository to report issues or view source code: <br><a href="https://github.com/LivingSkySchoolDivision/MySchoolSaskEnhancementSuite">https://github.com/LivingSkySchoolDivision/MySchoolSaskEnhancementSuite</a></p>
-        <p>This extension does not collect any data from you or your web browser.</p>
         </div>
 
         <div class="optionsSection" style="font-size: 75%">
