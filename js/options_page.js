@@ -3,7 +3,6 @@ function logMsg(msg) {
 }
 
 function enableTimeoutOptions() {
-  $("#rdbNewTimeoutLength_30").prop("disabled", false);
   $("#rdbNewTimeoutLength_60").prop("disabled", false);
   $("#rdbNewTimeoutLength_120").prop("disabled", false);
   $("#rdbNewTimeoutLength_240").prop("disabled", false);
@@ -11,7 +10,6 @@ function enableTimeoutOptions() {
 }
 
 function disableTimeoutOptions() {
-  $("#rdbNewTimeoutLength_30").prop("disabled", true);
   $("#rdbNewTimeoutLength_60").prop("disabled", true);
   $("#rdbNewTimeoutLength_120").prop("disabled", true);
   $("#rdbNewTimeoutLength_240").prop("disabled", true);
@@ -224,42 +222,36 @@ function onSyncSettingsLoaded(settings) {
   // Session timeout values
   switch(settings["iNewTimeoutLength"]) {
     case 30 :
-      document.querySelector("#rdbNewTimeoutLength_30").checked = true;
       document.querySelector("#rdbNewTimeoutLength_60").checked = false;
       document.querySelector("#rdbNewTimeoutLength_120").checked = false;
       document.querySelector("#rdbNewTimeoutLength_240").checked = false;
       document.querySelector("#rdbNewTimeoutLength_360").checked = false;
       break;
     case 60 :
-      document.querySelector("#rdbNewTimeoutLength_30").checked = false;
       document.querySelector("#rdbNewTimeoutLength_60").checked = true;
       document.querySelector("#rdbNewTimeoutLength_120").checked = false;
       document.querySelector("#rdbNewTimeoutLength_240").checked = false;
       document.querySelector("#rdbNewTimeoutLength_360").checked = false;
       break;
     case 120 :
-      document.querySelector("#rdbNewTimeoutLength_30").checked = false;
       document.querySelector("#rdbNewTimeoutLength_60").checked = false;
       document.querySelector("#rdbNewTimeoutLength_120").checked = true;
       document.querySelector("#rdbNewTimeoutLength_240").checked = false;
       document.querySelector("#rdbNewTimeoutLength_360").checked = false;
       break;
     case 240 :
-      document.querySelector("#rdbNewTimeoutLength_30").checked = false;
       document.querySelector("#rdbNewTimeoutLength_60").checked = false;
       document.querySelector("#rdbNewTimeoutLength_120").checked = false;
       document.querySelector("#rdbNewTimeoutLength_240").checked = true;
       document.querySelector("#rdbNewTimeoutLength_360").checked = false;
       break;
     case 360 :
-      document.querySelector("#rdbNewTimeoutLength_30").checked = false;
       document.querySelector("#rdbNewTimeoutLength_60").checked = false;
       document.querySelector("#rdbNewTimeoutLength_120").checked = false;
       document.querySelector("#rdbNewTimeoutLength_240").checked = false;
       document.querySelector("#rdbNewTimeoutLength_360").checked = true;
       break;
     default :
-      document.querySelector("#rdbNewTimeoutLength_30").checked = true;
       document.querySelector("#rdbNewTimeoutLength_60").checked = false;
       document.querySelector("#rdbNewTimeoutLength_120").checked = false;
       document.querySelector("#rdbNewTimeoutLength_240").checked = false;
