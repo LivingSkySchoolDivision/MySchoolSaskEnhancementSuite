@@ -288,7 +288,7 @@ function enableShiftClickCheckboxes(settings) {
 	    "const allCheckBoxes = Array.from(document.querySelectorAll('[type=\"checkbox\"]'));" +
 	    "let lastCheckedBox;" +
 	    "function changeBox(event) { if (event.shiftKey && this != lastCheckedBox) { checkIntermediateBoxes(lastCheckedBox, this); } lastCheckedBox = this; } " +
-	    "function checkIntermediateBoxes(first, second) { if (allCheckBoxes.indexOf(first) > allCheckBoxes.indexOf(second)) { [second, first] = [first, second]; } intermediateBoxes(first, second).forEach(box => box.checked = true); } " +
+	    "function checkIntermediateBoxes(first, second) { if (allCheckBoxes.indexOf(first) > allCheckBoxes.indexOf(second)) { [second, first] = [first, second]; }  intermediateBoxes(first, second).forEach(box => $('#' + box.id).click()); } " +
 	    "function intermediateBoxes(start, end) { return allCheckBoxes.filter((item, key) => { return allCheckBoxes.indexOf(start) < key && key < allCheckBoxes.indexOf(end); }); } " +
 	    "allCheckBoxes.forEach(item => item.addEventListener('click', changeBox));  " +
 	    "</script>");
