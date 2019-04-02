@@ -17,8 +17,6 @@ This addon offers the following enhancements, each toggleable from this addon's 
 * Can allow the user to quickly check multiple checkboxes by clicking one, then shift+clicking another, having each checkbox between the two get checked automatically
 
 # How to install
-## Firefox
-To install, download the newest *.xpi file from the [releases](https://github.com/LivingSkySchoolDivision/MySchoolSaskEnhancementSuite-Firefox/releases) section of this repository. If you use FireFox, it should prompt you to install.
-
+s
 ## Chrome
 Add this extension to your browser from the Chrome Web Store: https://chrome.google.com/webstore/detail/myschoolsask-enhancement/gnelcbacckaepbjnbgmbfbemdcefffbj
