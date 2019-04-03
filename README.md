@@ -17,6 +17,5 @@ This addon offers the following enhancements, each toggleable from this addon's 
 * Can allow the user to quickly check multiple checkboxes by clicking one, then shift+clicking another, having each checkbox between the two get checked automatically
 
 # How to install
-s
 ## Chrome
 Add this extension to your browser from the Chrome Web Store: https://chrome.google.com/webstore/detail/myschoolsask-enhancement/gnelcbacckaepbjnbgmbfbemdcefffbj
