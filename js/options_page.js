@@ -27,12 +27,6 @@ function disableTimeoutOptions() {
   $("#rdbNewTimeoutLength_360").prop("disabled", true);
 }
 
-$("#rdbNewTimeoutLength_30").on('change', function() {
-  chrome.storage.sync.set({
-    iNewTimeoutLength: 30
-  });
-});
-
 $("#rdbNewTimeoutLength_60").on('change', function() {
   chrome.storage.sync.set({
     iNewTimeoutLength: 60
