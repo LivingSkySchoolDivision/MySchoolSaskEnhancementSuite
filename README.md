@@ -1,6 +1,9 @@
 # MySchoolSask Enhancement Suite
 This browser extension adds usability enhancements to the MySchoolSask web app.
 
+This extension has been tested on *Mozilla Firefox*, *Google Chrome*, and *Microsoft Edge (Chromium Dev Version)*. 
+It does not currently work properly in *Opera*, and Opera support should be considered experimental.
+
 # What is MySchoolSask?
 MySchoolSask is a provincial student information system for school divisions in Saskatchewan, Canada.
 
