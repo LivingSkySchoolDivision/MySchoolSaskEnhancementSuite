@@ -4,7 +4,7 @@ pipeline {
         stage('Git clone') {
             steps {
                 git branch: 'master',
-                    credentialsId: 'JENKINS-PRIVKEY',
+                    credentialsId: 'JENKINS-AZUREDEVOPS',
                     url: 'git@ssh.dev.azure.com:v3/LivingSkySchoolDivision/MySchoolSaskEnhancementSuite/MySchoolSaskEnhancementSuite'
             }
         }
