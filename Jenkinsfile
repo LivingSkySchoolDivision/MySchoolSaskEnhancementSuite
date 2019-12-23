@@ -28,16 +28,6 @@ pipeline {
         }
     }
     post {
-        failure {
-            mail to:'jenkinsalerts@lskysd.ca',
-                subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
-                body: "Something is wrong with ${env.BUILD_URL}"
-        }
-        success {
-            mail to:'jenkinsalerts@lskysd.ca',
-                subject: "Build pipeline completed successfully: ${currentBuild.fullDisplayName}",
-                body: "${env.BUILD_URL}"
-        }
         always {
             deleteDir()
         }
