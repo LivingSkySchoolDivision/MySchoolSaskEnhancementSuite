@@ -4,7 +4,7 @@ pipeline {
         stage('Git clone') {
             steps {
                 git branch: 'master',
-                    url: 'https://sourcecode.lskysd.ca/PublicCode/MySchoolSaskEnhancementSuite.git'
+                    url: 'https://github.com/LivingSkySchoolDivision/MySchoolSaskEnhancementSuite.git'
             }
         }
         stage('Package for Chrome') {
