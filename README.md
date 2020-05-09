@@ -1,8 +1,12 @@
 # MySchoolSask Enhancement Suite
 This browser extension adds usability enhancements to the MySchoolSask web app.
 
-This extension has been tested on *Mozilla Firefox*, *Google Chrome*, and *Microsoft Edge (Chromium Version)*. 
-It does not currently work properly in *Opera*, and Opera support should be considered experimental and unsupported.
+# Browser Compatibility
+| Browser | Last version tested with |
+|:--------|:------------------------:|
+| Google Chrome | 81.0.4044.138 |
+| Mozilla Firefox | 76.0.1 |
+| Microsoft Edge | 81.0.416.72 |
 
 # What is MySchoolSask?
 MySchoolSask is a provincial student information system for school divisions in Saskatchewan, Canada.
@@ -23,5 +27,8 @@ This addon offers the following enhancements, each toggleable from this addon's 
 ## Chrome
 Add this extension to your browser from the Chrome Web Store: https://chrome.google.com/webstore/detail/myschoolsask-enhancement/gnelcbacckaepbjnbgmbfbemdcefffbj
 
-## Microsoft Edge (New Chromium version)
-Until we get this properly listed in the Microsoft store, you can use the Google Chrome Web Store to install this extension: https://chrome.google.com/webstore/detail/myschoolsask-enhancement/gnelcbacckaepbjnbgmbfbemdcefffbj
+## Microsoft Edge
+Add this extension to your browser from the Chrome Web Store: https://chrome.google.com/webstore/detail/myschoolsask-enhancement/gnelcbacckaepbjnbgmbfbemdcefffbj
+
+## Firefox
+Manually download the addon from this repository's *releases* page: https://github.com/LivingSkySchoolDivision/MySchoolSaskEnhancementSuite/releases/latest. You will be prompted to install once it's downloaded.
